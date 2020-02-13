@@ -1,2 +1,3 @@
-# reach_mastermind
-A mastermind game in Python
+A Mastermind Game in Python
+
+~ README is currently in progress ~
