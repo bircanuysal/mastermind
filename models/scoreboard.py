@@ -1,12 +1,14 @@
 #!/usr/bin/python3
 
+from typing import List
+
 
 class Scoreboard:
     """
     Scoreboard class.
     """
 
-    def __init__(self, num_count):
+    def __init__(self, num_count: int):
         """
         ScoreBoard constructor.
         """
@@ -14,7 +16,7 @@ class Scoreboard:
         self.player_guesses = []
         self.player_scores = []
 
-    def generate_history(self) -> str:
+    def generate_history(self) -> List[str]:
         """
         Generates history of guesses and scores for scoreboard.
         """
@@ -35,7 +37,8 @@ class Scoreboard:
 
     def __str__(self) -> str:
         """
-        String representation of class."""
+        String representation of class.
+        """
         sb = self.generate_history()
         results = "\n".join([line for line in sb])
         string = "\n".join(
