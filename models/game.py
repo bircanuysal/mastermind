@@ -22,28 +22,28 @@ class Game:
         """
         Displays title screen.
         """
-        print("=== Title ===")
-        # TO DO
+        print("==========================="
+              "\n\nMASTERMIND\n\n"
+              "===========================")
 
     def display_options(self):
         """
         Displays options screen.
         """
-        print("=== Options ===")
-        # TO DO
-        # Ask player for name
+        name = input("What is your name? ")
+        self.player_one = Player(name, 3)
+        print(f"Good luck, {name}. Have fun!")
 
     def game_start(self):
         """
         Starts a new game.
         New board and new player(s) is/are instantiated.
         """
-        print("=== Starting Game ===")
         self.board = Board()
-        self.player_one = Player("Tu", 3)
+        # Turns are hard coded for now
+        self.player_one.turns = 3
         game_on = True
         while game_on:
-            self.board.display()
             self.board.get_player_input(self.player_one)
             self.board.check_board()
             self.board.display()
@@ -52,6 +52,7 @@ class Game:
                 break
             if self.check_defeat(self.player_one):
                 print(f"Better luck next time, {self.player_one.name}!")
+                print(f"The answer was {self.board.num_list}")
                 break
         self.play_again()
 
@@ -67,14 +68,13 @@ class Game:
         """
         Checks if the current player has won the game.
         """
-        last_score = board.player_scores[-1]
+        last_score = board.scoreboard.player_scores[-1]
         return last_score.get("correct_positions") == board.num_count
 
     def check_defeat(self, player) -> bool:
         """
         Checks if the current player has lost the game.
         """
-        print(f"{player.turns} turns left!")
         return player.turns == 0
 
     def play_again(self):
