@@ -91,6 +91,7 @@ class Game:
         """
         response = input("Play again? (y/n) ")
         if response in {'y', 'Y'}:
+            self.developer_mode = False
             self.display_options()
             self.game_start()
         else:
