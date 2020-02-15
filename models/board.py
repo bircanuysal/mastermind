@@ -4,6 +4,7 @@ from collections import Counter
 from models.player import Player
 from models.scoreboard import Scoreboard
 from random import randint
+import requests
 from typing import List
 
 
@@ -26,10 +27,19 @@ class Board:
 
     def generate_numbers(self) -> List[int]:
         """
-        Generates random numbers using the random libary.
+        Generates random numbers using the random.org API. If for any reason
+        that call is unsuccessful, the random libary is used as backup.
         """
-        return ([randint(0, self.num_combinations)
-                 for i in range(self.num_count)])
+        url = "https://www.random.org/integers/"
+        query_string = {"num": "4", "min": "0", "max": "7",
+                        "col": "1", "base": "10", "format": "plain",
+                        "rnd": "new"}
+        response = requests.request("GET", url, params=query_string)
+        if response.status_code == 200:
+            return [int(n) for n in response.text.split("\n") if len(n)]
+        else:
+            return [randint(0, self.num_combinations)
+                    for i in range(self.num_count)]
 
     def display(self):
         """
