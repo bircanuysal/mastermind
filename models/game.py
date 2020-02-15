@@ -27,7 +27,9 @@ class Game:
         """
         print("==========================="
               "\n\nMASTERMIND\n\n"
-              "===========================")
+              "===========================\n"
+              "Test your code-cracking prowess with Mastermind, the challenging\n"
+              "game of logic and deduction.\n")
 
     def display_options(self):
         """
@@ -44,7 +46,7 @@ class Game:
             print("<-- Developer Mode -->")
         turn_map = {"0": 3, "1": 12, "2": 10, "10": 8, "4": 6}
         self.player_one = Player(name.capitalize(), turn_map.get(difficulty))
-        print(f"Good luck, {self.player_one.name}. Have fun!")
+        print(f"\nGood luck, {self.player_one.name}. Have fun!")
 
     def game_start(self):
         """
@@ -52,6 +54,7 @@ class Game:
         New board and new player(s) is/are instantiated.
         """
         self.board = Board()
+        self.display_instructions()
         game_on = True
         while game_on:
             self.developer_mode and print(
@@ -60,10 +63,11 @@ class Game:
             self.board.check_board()
             self.board.display()
             if self.check_victory(self.board):
-                print("You have won!")
+                print("\nYou have won!")
+                print(f"The answer was {self.board.num_list}.")
                 break
             if self.check_defeat(self.player_one):
-                print(f"Better luck next time, {self.player_one.name}!")
+                print(f"\nBetter luck next time, {self.player_one.name}!")
                 print(f"The answer was {self.board.num_list}.")
                 break
         self.play_again()
@@ -106,8 +110,17 @@ class Game:
         Displays the levels of difficulty.
         There is a secret "0" option for developer mode.
         """
-        print("Difficulty options:\n"
+        print("\nDifficulty options:\n"
               "1. Easy\n"
               "2. Normal\n"
               "3. Hard\n"
               "4. Dark Souls")
+
+    def display_instructions(self):
+        """
+        Displays game instructions.
+        """
+        print("\n===========================\n"
+              "Try to guess the correct number sequence by entering four\n"
+              "numbers.\n"
+              "===========================")
