@@ -33,6 +33,7 @@ class Board:
         query_string = {"num": "4", "min": "0", "max": "7",
                         "col": "1", "base": "10", "format": "plain",
                         "rnd": "new"}
+        print("Generating board...")
         response = requests.request("GET", url, params=query_string)
         if response.status_code == 200:
             return [int(n) for n in response.text.split("\n") if len(n)]
@@ -53,7 +54,8 @@ class Board:
         """
         guesses = []
         guess_count = 1
-        print(f"{player.turns} turns left.")
+        print(f"\n{player.turns} turns left.")
+        print(f"Please enter a number between 0 and {self.num_combinations}.")
         while len(guesses) != self.num_count:
             guess = input(f"Enter in your guess for position {guess_count}: ")
             # TODO
