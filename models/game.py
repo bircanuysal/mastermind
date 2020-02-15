@@ -5,7 +5,7 @@ from models.board import Board
 from models.player import Player
 from models.utils.num_validator import NumValidator
 from models.utils.str_validator import StrValidator
-from models.utils.timer import Timer, TimerError
+from models.utils.timer import Timer
 from time import sleep
 
 
