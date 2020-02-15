@@ -26,12 +26,12 @@ class NumValidator(Validator):
         to re-enter.
         """
         while True:
-            guess = input(prompt).strip()
+            num = input(prompt).strip()
             try:
-                guess = int(guess)
-                if guess < min_value or guess > max_value:
+                num = int(num)
+                if num < min_value or num > max_value:
                     raise Exception
-                return guess
+                return num
             except Exception:
                 print(
                     f"Invalid input. Please enter in a number from {min_value} to {max_value}.")
