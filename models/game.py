@@ -104,7 +104,7 @@ class Game:
     def display_difficulty(self):
         """
         Displays the levels of difficulty.
-        There is a secret "d" option for developer mode.
+        There is a secret "0" option for developer mode.
         """
         print("Difficulty options:\n"
               "1. Easy\n"
