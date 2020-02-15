@@ -31,8 +31,8 @@ class Game:
         Displays options screen.
         """
         name = input("What is your name? ")
-        self.player_one = Player(name, 3)
-        print(f"Good luck, {name}. Have fun!")
+        self.player_one = Player(name.capitalize(), 3)
+        print(f"Good luck, {self.player_one.name}. Have fun!")
 
     def game_start(self):
         """
