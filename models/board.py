@@ -48,6 +48,7 @@ class Board:
         the player's previous guesses as well as the player's current score.
         """
         print(self.scoreboard)
+        self.display_legend()
 
     def get_player_input(self, player: Player):
         """
@@ -82,3 +83,11 @@ class Board:
                 correct_colors -= 1
         self.scoreboard.player_scores.append(
             {"correct_colors": correct_colors, "correct_positions": correct_positions})
+
+    def display_legend(self):
+        """
+        Displays the board legend.
+        """
+        print("\nX = Correct number, correct location\n"
+              "O = Correct number, incorrect location\n"
+              "* = Incorrect number, incorrect location")
