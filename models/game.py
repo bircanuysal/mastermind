@@ -17,6 +17,7 @@ class Game:
         self.board = None
         self.num_players = num_players
         self.player_one = None
+        self.developer_mode = False
 
     def display_title(self):
         """
@@ -30,8 +31,15 @@ class Game:
         """
         Displays options screen.
         """
-        name = input("What is your name? ")
-        self.player_one = Player(name.capitalize(), 3)
+        name = (input(
+            "What is your name? ") if not self.player_one
+            else self.player_one.name)
+        self.display_difficulty()
+        difficulty = input()
+        if difficulty in {"d"}:
+            self.developer_mode = True
+        turn_map = {"1": 12, "2": 10, "10": 8, "4": 6, "d": 3}
+        self.player_one = Player(name.capitalize(), turn_map.get(difficulty))
         print(f"Good luck, {self.player_one.name}. Have fun!")
 
     def game_start(self):
@@ -40,10 +48,10 @@ class Game:
         New board and new player(s) is/are instantiated.
         """
         self.board = Board()
-        # Turns are hard coded for now
-        self.player_one.turns = 3
         game_on = True
         while game_on:
+            self.developer_mode and print(
+                "Answer = " + str(self.board.num_list))
             self.board.get_player_input(self.player_one)
             self.board.check_board()
             self.board.display()
@@ -83,6 +91,18 @@ class Game:
         """
         response = input("Play again? (y/n) ")
         if response in {'y', 'Y'}:
+            self.display_options()
             self.game_start()
         else:
             print(f"Goodbye!")
+
+    def display_difficulty(self):
+        """
+        Displays the levels of difficulty.
+        There is a secret "d" option for developer mode.
+        """
+        print("Select your difficulty:\n"
+              "1. Easy\n"
+              "2. Normal\n"
+              "3. Hard\n"
+              "4. Dark Souls")
