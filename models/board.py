@@ -18,7 +18,7 @@ class Board:
         """
         Board constructor.
         Default value for the amount of numbers to guess is 4. Default value
-        for the number of possible number combinations is 7.
+        for the number of possible number combinations is 0 through 7.
         """
         self.num_count = num_count
         self.num_combinations = num_combinations
@@ -31,7 +31,7 @@ class Board:
         that call is unsuccessful, the random libary is used as backup.
         """
         url = "https://www.random.org/integers/"
-        query_string = {"num": "4", "min": "0", "max": "7",
+        query_string = {"num": "4", "min": "0", "max": str(self.num_combinations),
                         "col": "1", "base": "10", "format": "plain",
                         "rnd": "new"}
         print("Generating board...")
