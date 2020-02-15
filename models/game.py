@@ -2,6 +2,7 @@
 
 from models.board import Board
 from models.player import Player
+from models.utils.num_validator import NumValidator
 
 
 class Game:
@@ -35,10 +36,12 @@ class Game:
             "What is your name? ") if not self.player_one
             else self.player_one.name)
         self.display_difficulty()
-        difficulty = input()
-        if difficulty in {"d"}:
+        nv = NumValidator()
+        difficulty = nv.get_difficulty(0, 4)
+        if difficulty == "0":
             self.developer_mode = True
-        turn_map = {"1": 12, "2": 10, "10": 8, "4": 6, "d": 3}
+            print("<-- Developer Mode -->")
+        turn_map = {"0": 3, "1": 12, "2": 10, "10": 8, "4": 6}
         self.player_one = Player(name.capitalize(), turn_map.get(difficulty))
         print(f"Good luck, {self.player_one.name}. Have fun!")
 
@@ -102,7 +105,7 @@ class Game:
         Displays the levels of difficulty.
         There is a secret "d" option for developer mode.
         """
-        print("Select your difficulty:\n"
+        print("Difficulty options:\n"
               "1. Easy\n"
               "2. Normal\n"
               "3. Hard\n"
