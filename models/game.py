@@ -4,6 +4,7 @@ from models.board import Board
 from models.player import Player
 from models.utils.num_validator import NumValidator
 from models.utils.str_validator import StrValidator
+from models.utils.timer import Timer, TimerError
 
 
 class Game:
@@ -20,6 +21,7 @@ class Game:
         self.num_players = num_players
         self.player_one = None
         self.developer_mode = False
+        self.timer = Timer()
 
     def display_title(self):
         """
@@ -56,6 +58,7 @@ class Game:
         self.board = Board()
         self.display_instructions()
         game_on = True
+        self.timer.start()
         while game_on:
             self.developer_mode and print(
                 "Answer = " + str(self.board.num_list))
@@ -64,12 +67,12 @@ class Game:
             self.board.display()
             if self.check_victory(self.board):
                 print("\nYou have won!")
-                print(f"The answer was {self.board.num_list}.")
                 break
-            if self.check_defeat(self.player_one):
+            elif self.check_defeat(self.player_one):
                 print(f"\nBetter luck next time, {self.player_one.name}!")
-                print(f"The answer was {self.board.num_list}.")
                 break
+        print(f"The answer was {self.board.num_list}.")
+        self.timer.stop()
         self.play_again()
 
     def play(self):
