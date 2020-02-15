@@ -23,7 +23,6 @@ class Board:
         self.num_combinations = num_combinations
         self.num_list = self.generate_numbers()
         self.scoreboard = Scoreboard(self.num_count)
-        print("Answer = " + str(self.num_list))
 
     def generate_numbers(self) -> List[int]:
         """
