@@ -3,6 +3,7 @@
 from models.board import Board
 from models.player import Player
 from models.utils.num_validator import NumValidator
+from models.utils.str_validator import StrValidator
 
 
 class Game:
@@ -32,9 +33,9 @@ class Game:
         """
         Displays options screen.
         """
-        name = (input(
-            "What is your name? ") if not self.player_one
-            else self.player_one.name)
+        sv = StrValidator()
+        name = (sv.get_name() if not self.player_one
+                else self.player_one.name)
         self.display_difficulty()
         nv = NumValidator()
         difficulty = nv.get_difficulty(0, 4)
@@ -63,7 +64,7 @@ class Game:
                 break
             if self.check_defeat(self.player_one):
                 print(f"Better luck next time, {self.player_one.name}!")
-                print(f"The answer was {self.board.num_list}")
+                print(f"The answer was {self.board.num_list}.")
                 break
         self.play_again()
 
