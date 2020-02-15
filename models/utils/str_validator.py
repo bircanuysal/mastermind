@@ -25,7 +25,7 @@ class StrValidator(Validator):
             if self.is_alpha_or_space(string):
                 return string
             else:
-                print("Invalid input. Only alpabet characters and spaces only.")
+                print("Invalid input. Only alphabet characters and spaces only.")
 
     def is_alpha_or_space(self, string: str) -> bool:
         """
