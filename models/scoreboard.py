@@ -23,7 +23,7 @@ class Scoreboard:
         scoreboard = []
         for i, (g, s) in enumerate(zip(self.player_guesses, self.player_scores)):
             string_builder = []
-            string_builder.append(f"{i + 1}. ")
+            string_builder.append(f"{i + 1}.  " if i < 9 else f"{i + 1}. ")
             string_builder.append(str([i for i in g]))
             string_builder.append("\t\t")
             correct_positions = s.get("correct_positions")
