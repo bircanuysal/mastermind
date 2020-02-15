@@ -43,7 +43,7 @@ class Scoreboard:
         results = "\n".join([line for line in sb])
         string = "\n".join(
             ("===========================",
-             "\nMASTERMIND\n",
+             "\n#   Guesses                     Scores\n",
              results,
-             "===========================",))
+             "\n===========================",))
         return string
