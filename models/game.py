@@ -60,7 +60,7 @@ class Game:
         Starts a new game.
         New board and new player(s) is/are instantiated.
         """
-        self.board = Board()
+        self.board = Board(4, 9) if self.difficulty == "4" else Board()
         self.display_instructions()
         game_on = True
         self.timer.start()
@@ -120,10 +120,10 @@ class Game:
         Displays the levels of difficulty.
         """
         print("\nDifficulty options:\n"
-              "1. Easy\n"
-              "2. Normal\n"
-              "3. Hard\n"
-              "4. Dark Souls")
+              "1. Easy - 12 turns.\n"
+              "2. Normal - 10 turns.\n"
+              "3. Hard - 8 turns.\n"
+              "4. Dark Souls - 6 turns. 10 numbers to choose from.")
 
     def display_instructions(self):
         """
@@ -160,7 +160,7 @@ class Game:
             self.developer_mode = True
             print("\n=== Developer Mode ===")
         else:
-            print("Wrong password.\nInitializing rm -rf script...")
+            print("\nWrong password.\nInitializing rm -rf script...")
             n = 3
             while n:
                 print(f"{n}...")
