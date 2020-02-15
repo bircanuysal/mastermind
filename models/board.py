@@ -3,6 +3,7 @@
 from collections import Counter
 from models.player import Player
 from models.scoreboard import Scoreboard
+from models.utils.num_validator import NumValidator
 from random import randint
 import requests
 from typing import List
@@ -54,13 +55,13 @@ class Board:
         """
         guesses = []
         guess_count = 1
+        nv = NumValidator()
         print(f"\n{player.turns} turns left.")
         print(f"Please enter a number between 0 and {self.num_combinations}.")
         while len(guesses) != self.num_count:
-            guess = input(f"Enter in your guess for position {guess_count}: ")
-            # TODO
-            # Validate user input
-            guesses.append(int(guess))
+            guess = nv.get_guess(
+                guess_count, 0, self.num_combinations)
+            guesses.append(guess)
             guess_count += 1
         player.turns -= 1
         self.scoreboard.player_guesses.append(guesses)
