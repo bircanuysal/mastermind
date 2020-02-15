@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 from models.utils.validator import Validator
 
 
