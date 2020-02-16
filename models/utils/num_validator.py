@@ -19,7 +19,7 @@ class NumValidator(Validator):
         """
         Gets user input for difficulty.
         """
-        prompt = "Select your difficulty. "
+        prompt = "Select your difficulty: "
         return str(self.get_input(prompt, min_value, max_value))
 
     def get_guess(self, guess_count: int, min_value: int, max_value: int) -> str:
