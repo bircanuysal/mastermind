@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 
 from collections import Counter
-from models.player import Player
-from models.scoreboard import Scoreboard
-from models.utils.num_validator import NumValidator
+from mastermind.player import Player
+from mastermind.scoreboard import Scoreboard
+from mastermind.utils.num_validator import NumValidator
 from random import randint
 import requests
 from typing import List

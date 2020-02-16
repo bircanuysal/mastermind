@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from models.utils.validator import Validator
+from mastermind.utils.validator import Validator
 
 
 class StrValidator(Validator):

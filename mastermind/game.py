@@ -2,11 +2,11 @@
 
 import getpass
 import json
-from models.board import Board
-from models.player import Player
-from models.utils.num_validator import NumValidator
-from models.utils.str_validator import StrValidator
-from models.utils.timer import Timer
+from mastermind.board import Board
+from mastermind.player import Player
+from mastermind.utils.num_validator import NumValidator
+from mastermind.utils.str_validator import StrValidator
+from mastermind.utils.timer import Timer
 from time import sleep
 
 
@@ -190,7 +190,7 @@ class Game:
         Displays current leaderboard, sorted in descending order.
         """
         try:
-            with open('dev_data/leaderboard.json') as f:
+            with open('data/leaderboard.json') as f:
                 data = json.load(f)
         except IOError:
             return print("Could not load leaderboard at this time.")
@@ -209,7 +209,7 @@ class Game:
         """
         Writes current score to leaderboard.
         """
-        file_name = "dev_data/leaderboard.json"
+        file_name = "data/leaderboard.json"
         try:
             with open(file_name) as f:
                 data = json.load(f)
