@@ -151,7 +151,8 @@ class Game:
         total_turns = Game.turn_map.get(self.difficulty)
         turns_remaining = self.player_one.turns
         score *= 1 + (turns_remaining / total_turns)
-        print(f"Score is {round(score):,}.")
+        self.player_one.score = score
+        self.write_score(score)
 
     def validate_developer_mode(self):
         """
@@ -203,3 +204,24 @@ class Game:
             entry_score = entry.get("score")
             print(f"{entry_name: <30} {entry_score: >17}")
         print("================================================\n")
+
+    def write_score(self, score: int):
+        """
+        Writes current score to leaderboard.
+        """
+        file_name = "dev_data/leaderboard.json"
+        try:
+            with open(file_name) as f:
+                data = json.load(f)
+        except (IOError, Exception):
+            return print("Could not load leaderboard at this time.")
+        new_entry = {"name": self.player_one.name,
+                     "score": str(round(score))}
+        data.append(new_entry)
+        try:
+            with open(file_name, 'w') as f:
+                json.dump(data, f)
+        except (IOError, Exception):
+            print("Could not write score to leaderboard at this time.")
+        else:
+            self.display_leaderboard()
