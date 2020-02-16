@@ -14,21 +14,24 @@ class Board:
     Board class.
     """
 
-    def __init__(self, num_count: int = 4, num_combinations: int = 7):
+    def __init__(self, num_combinations: int = 7, developer_mode: bool = False):
         """
         Board constructor.
         Default value for the amount of numbers to guess is 4. Default value
         for the number of possible number combinations is 0 through 7.
         """
-        self.num_count = num_count
+        self.num_count = 4
         self.num_combinations = num_combinations
-        self.num_list = self.generate_numbers()
+        if developer_mode:
+            self.num_list = self.generate_numbers_locally()
+        else:
+            self.num_list = self.generate_numbers_with_API()
         self.scoreboard = Scoreboard(self.num_count)
 
-    def generate_numbers(self) -> List[int]:
+    def generate_numbers_with_API(self) -> List[int]:
         """
         Generates random numbers using the random.org API. If for any reason
-        that call is unsuccessful, the random libary is used as backup.
+        that call is unsuccessful, the numbers will be generated locally.
         """
         url = "https://www.random.org/integers/"
         query_string = {"num": "4", "min": "0",
@@ -36,12 +39,26 @@ class Board:
                         "col": "1", "base": "10", "format": "plain",
                         "rnd": "new"}
         print("Generating board...")
-        response = requests.request("GET", url, params=query_string)
-        if response.status_code == 200:
-            return [int(n) for n in response.text.split("\n") if len(n)]
+        try:
+            response = requests.request(
+                "GET", url, params=query_string, timeout=5)
+        except Exception:
+            print("Connection timed out. Generating numbers locally...")
+            return self.generate_numbers_locally()
         else:
-            return [randint(0, self.num_combinations)
-                    for i in range(self.num_count)]
+            if response.status_code == 200:
+                return [int(n) for n in response.text.split("\n") if len(n)]
+            print(
+                f"{response.status_code} status code from API call. "
+                "Generating numbers locally...")
+            return self.generate_numbers_locally()
+
+    def generate_numbers_locally(self) -> List[int]:
+        """
+        Generates random numbers using the random libary.
+        """
+        return [randint(0, self.num_combinations)
+                for i in range(self.num_count)]
 
     def display(self):
         """
