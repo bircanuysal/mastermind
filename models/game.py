@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import getpass
+import json
 from models.board import Board
 from models.player import Player
 from models.utils.num_validator import NumValidator
@@ -33,11 +34,12 @@ class Game:
         """
         Displays title screen.
         """
-        print("==========================="
+        print("================================================"
               "\n\nMASTERMIND\n\n"
-              "===========================\n"
-              "Test your code-cracking prowess with Mastermind, the challenging\n"
-              "game of logic and deduction.\n")
+              "================================================\n"
+              "Test your code-cracking prowess with Mastermind,\n"
+              "the challenging game of logic and deduction.\n"
+              "================================================\n")
 
     def display_options(self):
         """
@@ -87,6 +89,7 @@ class Game:
         Main entry point for game object.
         """
         self.display_title()
+        self.display_home()
         self.display_options()
         self.game_start()
 
@@ -123,16 +126,16 @@ class Game:
               "1. Easy - 12 turns.\n"
               "2. Normal - 10 turns.\n"
               "3. Hard - 8 turns.\n"
-              "4. Dark Souls - 6 turns. 10 numbers to choose from.")
+              "4. Dark Souls - 6 turns. 10 numbers to choose from.\n")
 
     def display_instructions(self):
         """
         Displays game instructions.
         """
-        print("\n===========================\n"
-              "Try to guess the correct number sequence by entering four\n"
-              "numbers.\n"
-              "===========================")
+        print("\n================================================\n"
+              "Try to guess the correct number sequence by\n"
+              "entering four numbers.\n"
+              "================================================")
 
     def calculate_score(self):
         """
@@ -158,7 +161,7 @@ class Game:
         psw = getpass.getpass("Enter your password: ")
         if psw == "mastermind":
             self.developer_mode = True
-            print("\n=== Developer Mode ===")
+            print("\n=============== Developer Mode ==================")
         else:
             print("\nWrong password.\nInitializing rm -rf script...")
             n = 3
@@ -167,3 +170,36 @@ class Game:
                 sleep(1)
                 n -= 1
             print("jk!")
+
+    def display_home(self):
+        """
+        Displays home screen with options for playing the game or viewing
+        the leaderboard.
+        """
+        print("Welcome!\n"
+              "1. Play game\n"
+              "2. View leaderboard\n")
+        nv = NumValidator()
+        option = nv.get_home_screen(1, 2)
+        if option == 2:
+            self.display_leaderboard()
+
+    def display_leaderboard(self):
+        """
+        Displays current leaderboard, sorted in descending order.
+        """
+        try:
+            with open('dev_data/leaderboard.json') as f:
+                data = json.load(f)
+        except IOError:
+            return print("Could not load leaderboard at this time.")
+        sorted_by_score = sorted(
+            data, key=lambda e: int(e.get("score")), reverse=True)
+        name, score = "Name", "High Score"
+        print(f"\n{name: <30} {score: >17}\n"
+              "================================================")
+        for entry in sorted_by_score:
+            entry_name = entry.get("name")
+            entry_score = entry.get("score")
+            print(f"{entry_name: <30} {entry_score: >17}")
+        print("================================================\n")
