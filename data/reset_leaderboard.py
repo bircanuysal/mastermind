@@ -6,6 +6,6 @@ import os
 if __name__ == "__main__":
     try:
         os.system(
-            "cp ./leaderboard_default.json ./leaderboard.json")
+            "cp ./data/leaderboard_default.json ./data/leaderboard.json")
     except Exception as e:
         print(f"Error:\n{e}")
