@@ -1,0 +1,11 @@
+[
+  { "name": "Alan Turing", "score": "2750000" },
+  { "name": "Edsger Dijkstra", "score": "2250000" },
+  { "name": "Barbara Liskov", "score": "2500000" },
+  { "name": "Dennis Ritchie", "score": "1000000" },
+  { "name": "Grace Hopper", "score": "2000000" },
+  { "name": "Donald Knuth", "score": "1250000" },
+  { "name": "Ken Thompson", "score": "1500000" },
+  { "name": "Linus Torvalds", "score": "1750000" },
+  { "name": "Ex-Facebook Techlead", "score": "500000" }
+]
