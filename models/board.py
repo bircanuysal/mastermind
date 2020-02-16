@@ -31,7 +31,8 @@ class Board:
         that call is unsuccessful, the random libary is used as backup.
         """
         url = "https://www.random.org/integers/"
-        query_string = {"num": "4", "min": "0", "max": str(self.num_combinations),
+        query_string = {"num": "4", "min": "0",
+                        "max": str(self.num_combinations),
                         "col": "1", "base": "10", "format": "plain",
                         "rnd": "new"}
         print("Generating board...")
@@ -82,7 +83,8 @@ class Board:
                 correct_positions += 1
                 correct_colors -= 1
         self.scoreboard.player_scores.append(
-            {"correct_colors": correct_colors, "correct_positions": correct_positions})
+            {"correct_colors": correct_colors,
+             "correct_positions": correct_positions})
 
     def display_legend(self):
         """
