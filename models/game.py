@@ -61,7 +61,8 @@ class Game:
         Starts a new game.
         New board and new player(s) is/are instantiated.
         """
-        self.board = Board(4, 9) if self.difficulty == "4" else Board()
+        d = self.developer_mode
+        self.board = Board(9, d) if self.difficulty == "4" else Board(7, d)
         self.display_instructions()
         game_on = True
         self.timer.start()
