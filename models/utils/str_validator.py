@@ -13,7 +13,7 @@ class StrValidator(Validator):
         Gets user input for names.
         """
         prompt = "What is your name? "
-        return self.get_input(prompt)
+        return self.capitalize(self.get_input(prompt))
 
     def get_input(self, prompt: str) -> str:
         """
@@ -37,3 +37,9 @@ class StrValidator(Validator):
             if not c.isalpha():
                 return False
         return True
+
+    def capitalize(self, string: str) -> str:
+        """
+        Capitalize all words of a string.
+        """
+        return " ".join([word.capitalize() for word in string.split()])
