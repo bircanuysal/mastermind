@@ -47,7 +47,8 @@ class Board:
             return self.generate_numbers_locally()
         else:
             if response.status_code == 200:
-                return [int(n) for n in response.text.split("\n") if len(n)]
+                return [int(n) for n in
+                        response.text.encode('utf8').split("\n") if len(n)]
             print(
                 f"{response.status_code} status code from API call. "
                 "Generating numbers locally...")
