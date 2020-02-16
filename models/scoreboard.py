@@ -42,8 +42,8 @@ class Scoreboard:
         sb = self.generate_history()
         results = "\n".join([line for line in sb])
         string = "\n".join(
-            ("===========================",
+            ("================================================",
              "\n#   Guesses                     Scores\n",
              results,
-             "\n===========================",))
+             "\n================================================",))
         return string
