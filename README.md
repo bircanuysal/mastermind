@@ -8,24 +8,33 @@ This repository contains the Mastermind game written in Python.
 
 ## Table of contents
 
-- [Setup](#setup)
-- [How to Play](#how_to_play)
-- [To Dos](#to_dos)
-- [Author](#authors)
+- [Requirements](#requirements)
+- [How to Play](#how-to-play)
+- [To Dos](#to-dos)
+- [Authors](#authors)
 
-## Setup
+## Requirements
 
-This program requires Python 3.6+, Pip (Pip Installs Packages), and Git.
+### Python
 
-On your command line, clone with repository with Git:
+- Python 3.6 or above are required to run this application.
+- [Download Python](https://www.python.org/downloads/)
+
+### Git
+
+- [Download Git](https://git-scm.com/downloads)
+
+### Installation
+
+- On your command line, clone the repository with Git:
 
 `git clone https://github.com/tuvo1106/reach_mastermind`
 
-In order to install all of the game dependencies, please run:
+- In order to install all of the game dependencies, please run this command from the root of the repo:
 
 `pip install -r requirements.txt`
 
-To run game, use the following command:
+- To run the game, use the following command:
 
 `python3 ./setup.py`
 
