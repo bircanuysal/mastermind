@@ -8,18 +8,25 @@ class NumValidator(Validator):
     Number validator class.
     """
 
+    def get_home_screen(self, min_value: int, max_value: int) -> str:
+        """
+        Gets user input for home screen.
+        """
+        prompt = "What would you like to do? "
+        return self.get_input(prompt, min_value, max_value)
+
     def get_difficulty(self, min_value: int, max_value: int) -> str:
         """
         Gets user input for difficulty.
         """
-        prompt = "Select your difficulty: "
+        prompt = "Select your difficulty. "
         return str(self.get_input(prompt, min_value, max_value))
 
     def get_guess(self, guess_count: int, min_value: int, max_value: int) -> str:
         """
         Gets user input for guesses.
         """
-        prompt = "Enter in your guess for position " + str(guess_count) + " : "
+        prompt = "Enter in your guess for position " + str(guess_count) + ": "
         return self.get_input(prompt, min_value, max_value)
 
     def get_input(self, prompt: str, min_value: int, max_value) -> int:
