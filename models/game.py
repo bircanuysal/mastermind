@@ -53,8 +53,7 @@ class Game:
         self.display_difficulty()
         nv = NumValidator()
         self.difficulty = nv.get_difficulty(1, 4)
-        self.player_one = Player(
-            name.capitalize(), Game.turn_map.get(self.difficulty))
+        self.player_one = Player(name, Game.turn_map.get(self.difficulty))
         print(f"\nGood luck, {self.player_one.name}. Have fun!")
 
     def game_start(self):
