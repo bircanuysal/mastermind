@@ -6,7 +6,7 @@ class Player:
     Player class.
     """
 
-    def __init__(self, name: str, difficulty: int):
+    def __init__(self, name: str, difficulty: str):
         """
         Player constructor.
         """
