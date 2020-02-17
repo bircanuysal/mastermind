@@ -39,6 +39,12 @@ This repository contains the Mastermind game written in Python.
 
 `python3 ./setup.py`
 
+### Browser Options
+
+- Alternatively, if you want to play on your browser, you can use the following link:
+
+[![Run on Repl.it](https://repl.it/badge/github/tuvo1106/reach_mastermind)](https://repl.it/github/tuvo1106/reach_mastermind)
+
 ## How to Play
 
 ## Features
