@@ -106,6 +106,10 @@ contribute to a better score:
 - The difficulty
 - Turns remaining after the last guess
 
+To reset the leaderboard to factory settings, run the following command:
+
+`python3 ./data/reset_leaderboard.py`
+
 ## Hints
 
 Coming soon!
@@ -115,7 +119,7 @@ Coming soon!
 This repository is set up with a Github Actions workflow to test dependencies,
 run a Pyflake linter and validate unittests on every push.
 
-[Check it out here](./.github/workflows/pythonapp.yml)
+[Check it out here!](./.github/workflows/mastermind.yml)
 
 ## Unit Testing
 
