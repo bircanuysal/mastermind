@@ -10,6 +10,7 @@ This repository contains the Mastermind game written in Python.
 
 - [Requirements](#requirements)
 - [How to Play](#how-to-play)
+- [Development](#development)
 - [Features](#features)
 - [To Dos](#to-dos)
 - [Authors](#authors)
@@ -57,10 +58,10 @@ difficulties is shown below:
 
 | Difficulty | Number Range | Number of Turns |
 | :--------: | :----------: | :-------------: |
-|    Easy    |    0 - 7     | 12              |
-|   Normal   |    0 - 7     | 10              |
-|    Hard    |    0 - 7     | 8               |
-| Dark Souls |    0 - 9     | 6               |
+|    Easy    |    0 - 7     |       12        |
+|   Normal   |    0 - 7     |       10        |
+|    Hard    |    0 - 7     |        8        |
+| Dark Souls |    0 - 9     |        6        |
 
 Each guess is made by typing in 4 consecutive numbers in the terminal.
 After each guess, the Codebreaker will get feedback on the previous
@@ -93,6 +94,8 @@ guesses [1, 3, 6, 9], the feedback that is given will be:
   the only unmatched guess which is 1, therefore resulting in a mismatch of
   number and position.
 
+## Development
+
 ## Features
 
 ## Leaderboard
@@ -105,6 +108,7 @@ contribute to a better score:
 - How many seconds it took the player to complete the game
 - The difficulty
 - Turns remaining after the last guess
+- How many hints they used up
 
 To reset the leaderboard to factory settings, run the following command:
 
@@ -112,24 +116,28 @@ To reset the leaderboard to factory settings, run the following command:
 
 ## Hints
 
-Coming soon!
+Players can ask for a hint by typing in 'h' when prompted for a guess. The
+computer will then generate a random number and position on the board to
+reveal.
+Each hint, however, will cause the player to lose 25% of their total score.
 
 ## Continuous Integration
 
 This repository is set up with a Github Actions workflow to test dependencies,
-run a Pyflake linter and validate unittests on every push.
+run a Pyflake8 linter and validate unit tests on every push.
 
 [Check it out here!](./.github/workflows/mastermind.yml)
 
 ## Unit Testing
 
-Coming soon!
+There is unit testing on various game objects. To administer the tests, enter
+in the following command from the root of the repo:
+
+`python -m unittest discover tests`
 
 ## To Dos
 
-- Allow users to ask for hints, but at the cost of a score penalty.
 - Add multiplayer functionality.
-- Unit-testing
 
 ## Authors
 
