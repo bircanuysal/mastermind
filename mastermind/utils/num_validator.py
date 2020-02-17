@@ -29,6 +29,13 @@ class NumValidator(Validator):
         prompt = "Enter in your guess for position " + str(guess_count) + ": "
         return self.get_input(prompt, min_value, max_value, True)
 
+    def get_endgame(self, min_value: int, max_value: int) -> str:
+        """
+        Gets user input for endgame options.
+        """
+        prompt = "Select an option: "
+        return self.get_input(prompt, min_value, max_value)
+
     def get_input(self, prompt: str, min_value: int, max_value,
                   allow_hints: bool = False) -> int:
         """
