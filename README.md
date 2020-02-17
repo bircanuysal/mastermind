@@ -106,12 +106,20 @@ contribute to a better score:
 - The difficulty
 - Turns remaining after the last guess
 
+## Hints
+
+Coming soon!
+
 ## Continuous Integration
 
 This repository is set up with a Github Actions workflow to test dependencies,
 run a Pyflake linter and validate unittests on every push.
 
 [Check it out here](./.github/workflows/pythonapp.yml)
+
+## Unit Testing
+
+Coming soon!
 
 ## To Dos
 
