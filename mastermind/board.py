@@ -97,9 +97,10 @@ class Board:
             if last_guesses[i] == self.num_list[i]:
                 correct_positions += 1
                 correct_colors -= 1
-        self.scoreboard.player_scores.append(
-            {"correct_colors": correct_colors,
-             "correct_positions": correct_positions})
+        new_entry = {"correct_colors": correct_colors,
+                     "correct_positions": correct_positions}
+        self.scoreboard.player_scores.append(new_entry)
+        return new_entry
 
     def display(self):
         """
@@ -117,13 +118,16 @@ class Board:
               "O = Correct number, incorrect location\n"
               "* = Incorrect number, incorrect location")
 
-    def generate_hint(self):
+    def generate_hint(self) -> bool:
         """
-        Generates a hint for the user.
+        Generates a hint for the user. Returns True if there are hints
+        available, false if not.
         """
         if not len(self.hints_remaining):
-            return print("No hints remaining!\n")
+            print("No hints remaining!\n")
+            return False
         r = randint(0, len(self.hints_remaining) - 1)
         random_index = self.hints_remaining.pop(r)
         num = self.num_list[random_index]
         print(f"{num} is at position {random_index + 1}.\n")
+        return True
