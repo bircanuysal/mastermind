@@ -1,23 +1,20 @@
 #!/usr/bin/env python3
 
 import getpass
-import json
 from mastermind.board import Board
+from mastermind.leaderboard import Leaderboard
 from mastermind.player import Player
 from mastermind.score import Score
 from mastermind.utils.num_validator import NumValidator
 from mastermind.utils.str_validator import StrValidator
 from mastermind.utils.timer import Timer
 from time import sleep
-from typing import List, Dict
 
 
 class Game:
     """
     Game class.
     """
-
-    leaderboard_file_path = "data/leaderboard.json"
 
     def __init__(self):
         """
@@ -124,7 +121,7 @@ class Game:
                 self.display_options()
                 return self.game_start()
             elif response == 2:
-                self.display_leaderboard()
+                Leaderboard.display_leaderboard()
             else:
                 return print(f"Goodbye!")
 
@@ -155,7 +152,7 @@ class Game:
         s = Score(self.board, self.player_one, victory, time)
         score = s.final_score()
         print(f"Your score was {score}.")
-        self.write_score(score)
+        Leaderboard.write_score(self.player_one.name, score)
 
     def validate_developer_mode(self):
         """
@@ -186,48 +183,4 @@ class Game:
         nv = NumValidator()
         option = nv.get_home_screen(1, 2)
         if option == 2:
-            self.display_leaderboard()
-
-    def open_leaderboard(self) -> List[Dict[str, str]] or None:
-        """
-        Attempts to open leaderboard. Returns leaderboard if successful.
-        """
-        try:
-            with open(Game.leaderboard_file_path) as f:
-                data = json.load(f)
-                return data
-        except (IOError, Exception):
-            print("Could not load leaderboard at this time.")
-            return None
-
-    def display_leaderboard(self):
-        """
-        Displays current leaderboard, sorted in descending order.
-        """
-        data = self.open_leaderboard()
-        if data:
-            sorted_by_score = sorted(
-                data, key=lambda e: int(e.get("score")), reverse=True)
-            name, score = "Name", "High Score"
-            print(f"\n{name: <30} {score: >17}\n"
-                  "================================================")
-            for entry in sorted_by_score:
-                entry_name = entry.get("name")
-                entry_score = entry.get("score")
-                print(f"{entry_name: <30} {entry_score: >17}")
-            print("================================================\n")
-
-    def write_score(self, score: int):
-        """
-        Writes current score to leaderboard.
-        """
-        data = self.open_leaderboard()
-        if data:
-            new_entry = {"name": self.player_one.name,
-                         "score": str(score)}
-            data.append(new_entry)
-            try:
-                with open(Game.leaderboard_file_path, 'w') as f:
-                    json.dump(data, f)
-            except (IOError, Exception):
-                print("Could not write score to leaderboard at this time.")
+            Leaderboard.display_leaderboard()
