@@ -56,7 +56,7 @@ numbers within a given amount of turns. The breakdown of the different
 difficulties is shown below:
 
 | Difficulty | Number Range | Number of Turns |
-| :--------: | :----------: | --------------- |
+| :--------: | :----------: | :-------------: |
 |    Easy    |    0 - 7     | 12              |
 |   Normal   |    0 - 7     | 10              |
 |    Hard    |    0 - 7     | 8               |
