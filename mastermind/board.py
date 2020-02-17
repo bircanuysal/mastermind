@@ -29,6 +29,13 @@ class Board:
         self.scoreboard = Scoreboard(self.num_count)
         self.hints_remaining = [i for i in range(self.num_count)]
 
+    def generate_numbers_locally(self) -> List[int]:
+        """
+        Generates random numbers using the random libary.
+        """
+        return [randint(0, self.num_combinations)
+                for i in range(self.num_count)]
+
     def generate_numbers_with_API(self) -> List[int]:
         """
         Generates random numbers using the random.org API. If for any reason
@@ -54,21 +61,6 @@ class Board:
                 f"{response.status_code} status code from API call."
                 "Generating numbers locally...")
             return self.generate_numbers_locally()
-
-    def generate_numbers_locally(self) -> List[int]:
-        """
-        Generates random numbers using the random libary.
-        """
-        return [randint(0, self.num_combinations)
-                for i in range(self.num_count)]
-
-    def display(self):
-        """
-        Displays the current status of the board. This includes a list of
-        the player's previous guesses as well as the player's current score.
-        """
-        print(self.scoreboard)
-        self.display_legend()
 
     def get_player_input(self, player: Player):
         """
@@ -108,6 +100,14 @@ class Board:
         self.scoreboard.player_scores.append(
             {"correct_colors": correct_colors,
              "correct_positions": correct_positions})
+
+    def display(self):
+        """
+        Displays the current status of the board. This includes a list of
+        the player's previous guesses as well as the player's current score.
+        """
+        print(self.scoreboard)
+        self.display_legend()
 
     def display_legend(self):
         """
