@@ -27,20 +27,24 @@ class NumValidator(Validator):
         Gets user input for guesses.
         """
         prompt = "Enter in your guess for position " + str(guess_count) + ": "
-        return self.get_input(prompt, min_value, max_value)
+        return self.get_input(prompt, min_value, max_value, True)
 
-    def get_input(self, prompt: str, min_value: int, max_value) -> int:
+    def get_input(self, prompt: str, min_value: int, max_value,
+                  allow_hints: bool = False) -> int:
         """
         Validates user input is in accepted number range or will re-prompt user
-        to re-enter.
+        to re-enter. Returns -1 if hints are allowed and user enters in 'h'.
         """
         while True:
             num = input(prompt).strip()
             try:
+                if allow_hints and num == "h":
+                    return -1
                 num = int(num)
                 if num < min_value or num > max_value:
                     raise Exception
                 return num
             except Exception:
                 print(
-                    f"Invalid input. Please enter in a number from {min_value} to {max_value}.")
+                    f"Invalid input. Please enter in a number from {min_value}"
+                    f" to {max_value}.")
