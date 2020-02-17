@@ -4,6 +4,7 @@ import getpass
 import json
 from mastermind.board import Board
 from mastermind.player import Player
+from mastermind.score import Score
 from mastermind.utils.num_validator import NumValidator
 from mastermind.utils.str_validator import StrValidator
 from mastermind.utils.timer import Timer
@@ -15,17 +16,12 @@ class Game:
     Game class.
     """
 
-    turn_map = {"1": 12, "2": 10, "3": 8, "4": 6}
-
-    def __init__(self, num_players: int = 1):
+    def __init__(self):
         """
         Game constructor.
-        Default number of players is 1.
         """
         self.board = None
-        self.num_players = num_players
         self.player_one = None
-        self.difficulty = None
         self.developer_mode = False
 
     def display_title(self):
@@ -50,8 +46,8 @@ class Game:
             self.validate_developer_mode()
         self.display_difficulty()
         nv = NumValidator()
-        self.difficulty = nv.get_difficulty(1, 4)
-        self.player_one = Player(name, Game.turn_map.get(self.difficulty))
+        difficulty = nv.get_difficulty(1, 4)
+        self.player_one = Player(name, difficulty)
         print(f"\nGood luck, {self.player_one.name}. Have fun!")
 
     def game_start(self):
@@ -60,7 +56,8 @@ class Game:
         New board and new player(s) is/are instantiated.
         """
         d = self.developer_mode
-        self.board = Board(9, d) if self.difficulty == "4" else Board(7, d)
+        self.board = Board(
+            9, d) if self.player_one.difficulty == "4" else Board(7, d)
         self.display_instructions()
         victory_status = False
         timer = Timer()
@@ -140,20 +137,8 @@ class Game:
         Calculates player score based on victory status, time, difficulty and
         turns remaining.
         """
-        score = 100000
-        if victory:
-            score <<= int(self.difficulty)
-        time_penalty = (time / 100)
-        time_penalty = time_penalty if time_penalty <= 2 else 2
-        score *= 1 - (time_penalty / 2)
-        total_turns = Game.turn_map.get(self.difficulty)
-        turns_remaining = self.player_one.turns
-        score *= 1 + (turns_remaining / total_turns)
-        hints_used = self.board.num_count - len(self.board.hints_remaining)
-        print(f"Hints used: {hints_used}.")
-        hint_penalty = hints_used / self.board.num_count
-        score -= hint_penalty * score
-        score = round(score)
+        s = Score(self.board, self.player_one, victory, time)
+        score = s.final_score()
         print(f"Your score was {score}.")
         self.write_score(score)
         return score
