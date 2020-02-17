@@ -149,6 +149,10 @@ class Game:
         total_turns = Game.turn_map.get(self.difficulty)
         turns_remaining = self.player_one.turns
         score *= 1 + (turns_remaining / total_turns)
+        hints_used = self.board.num_count - len(self.board.hints_remaining)
+        print(f"Hints used: {hints_used}.")
+        hint_penalty = hints_used / self.board.num_count
+        score -= hint_penalty * score
         score = round(score)
         print(f"Your score was {score}.")
         self.write_score(score)

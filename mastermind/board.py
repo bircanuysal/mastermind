@@ -27,6 +27,7 @@ class Board:
         else:
             self.num_list = self.generate_numbers_with_API()
         self.scoreboard = Scoreboard(self.num_count)
+        self.hints_remaining = [i for i in range(self.num_count)]
 
     def generate_numbers_with_API(self) -> List[int]:
         """
@@ -50,7 +51,7 @@ class Board:
                 return [int(n) for n in
                         response.text.split("\n") if len(n)]
             print(
-                f"{response.status_code} status code from API call. "
+                f"{response.status_code} status code from API call."
                 "Generating numbers locally...")
             return self.generate_numbers_locally()
 
@@ -77,10 +78,14 @@ class Board:
         guess_count = 1
         nv = NumValidator()
         print(f"\n{player.turns} turns left.")
-        print(f"Please enter a number between 0 and {self.num_combinations}.")
+        print(f"Please enter a number between 0 and {self.num_combinations}.\n"
+              "Use 'h' for a hint. Caution, this will affect your total score!\n")
         while len(guesses) != self.num_count:
             guess = nv.get_guess(
                 guess_count, 0, self.num_combinations)
+            if guess == -1:
+                self.generate_hint()
+                continue
             guesses.append(guess)
             guess_count += 1
         player.turns -= 1
@@ -111,3 +116,14 @@ class Board:
         print("\nX = Correct number, correct location\n"
               "O = Correct number, incorrect location\n"
               "* = Incorrect number, incorrect location")
+
+    def generate_hint(self):
+        """
+        Generates a hint for the user.
+        """
+        if not len(self.hints_remaining):
+            return print("No hints remaining!\n")
+        r = randint(0, len(self.hints_remaining) - 1)
+        random_index = self.hints_remaining.pop(r)
+        num = self.num_list[random_index]
+        print(f"{num} is at position {random_index + 1}.\n")
