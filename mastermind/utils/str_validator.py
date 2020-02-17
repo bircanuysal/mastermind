@@ -30,13 +30,16 @@ class StrValidator(Validator):
     def is_alpha_or_space(self, string: str) -> bool:
         """
         Determines if given string has only alphabet characters or spaces.
+        Returns true if it has at least one letter.
         """
+        one_letter = False
         for c in list(string):
             if c == " ":
                 continue
             if not c.isalpha():
                 return False
-        return True
+            one_letter = True
+        return one_letter
 
     def capitalize(self, string: str) -> str:
         """
