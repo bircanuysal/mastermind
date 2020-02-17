@@ -4,14 +4,21 @@
 
 # Mastermind
 
-This repository contains the Mastermind game written in Python.
+This repository contains the Mastermind game written in Python3 for the terminal.
 
 ## Table of Contents
 
 - [Requirements](#requirements)
+  - [Python](#python)
+  - [Git](#git)
+  - [Installation](#installation)
 - [How to Play](#how-to-play)
 - [Development](#development)
 - [Features](#features)
+  - [Leaderboard](#leaderboard)
+  - [Hints](#hints)
+  - [Continuous Integration](#continuous-integration)
+  - [Unit Testing](#unit-testing)
 - [To Dos](#to-dos)
 - [Authors](#authors)
 
@@ -98,7 +105,7 @@ guesses [1, 3, 6, 9], the feedback that is given will be:
 
 ## Features
 
-## Leaderboard
+### Leaderboard
 
 Every time a player completes a game, their score is added to the high score.
 This leaderboard is saved throughout sessions on the same machine. Many factors
@@ -114,21 +121,21 @@ To reset the leaderboard to factory settings, run the following command:
 
 `python3 ./data/reset_leaderboard.py`
 
-## Hints
+### Hints
 
 Players can ask for a hint by typing in 'h' when prompted for a guess. The
 computer will then generate a random number and position on the board to
 reveal.
 Each hint, however, will cause the player to lose 25% of their total score.
 
-## Continuous Integration
+### Continuous Integration
 
 This repository is set up with a Github Actions workflow to test dependencies,
 run a Pyflake8 linter and validate unit tests on every push.
 
 [Check it out here!](./.github/workflows/mastermind.yml)
 
-## Unit Testing
+### Unit Testing
 
 There is unit testing on various game objects. To administer the tests, enter
 in the following command from the root of the repo:
