@@ -27,8 +27,6 @@ class Game:
         self.player_one = None
         self.difficulty = None
         self.developer_mode = False
-        self.victory = False
-        self.timer = Timer()
 
     def display_title(self):
         """
@@ -64,24 +62,25 @@ class Game:
         d = self.developer_mode
         self.board = Board(9, d) if self.difficulty == "4" else Board(7, d)
         self.display_instructions()
-        game_on = True
-        self.timer.start()
-        while game_on:
+        victory_status = False
+        timer = Timer()
+        timer.start()
+        while True:
             self.developer_mode and print(
                 "Answer = " + str(self.board.num_list))
             self.board.get_player_input(self.player_one)
             self.board.check_board()
             self.board.display()
             if self.check_victory(self.board):
-                self.victory = True
+                victory_status = True
                 print("\nYou have won!")
                 break
             elif self.check_defeat(self.player_one):
                 print(f"\nBetter luck next time, {self.player_one.name}!")
                 break
         print(f"The answer was {self.board.num_list}.")
-        self.timer.stop()
-        self.calculate_score()
+        timer.stop()
+        self.calculate_score(victory_status, timer.elapsed_time)
         self.play_again()
 
     def play(self):
@@ -112,7 +111,6 @@ class Game:
         """
         response = input("Play again? (y/n) ")
         if response in {'y', 'Y'}:
-            self.victory = False
             self.display_options()
             self.game_start()
         else:
@@ -137,22 +135,24 @@ class Game:
               "entering four numbers.\n"
               "================================================")
 
-    def calculate_score(self):
+    def calculate_score(self, victory: bool, time: int) -> int:
         """
         Calculates player score based on victory status, time, difficulty and
         turns remaining.
         """
         score = 100000
-        if self.victory:
+        if victory:
             score <<= int(self.difficulty)
-        time_penalty = (self.timer.elapsed_time / 100)
+        time_penalty = (time / 100)
         time_penalty = time_penalty if time_penalty <= 2 else 2
         score *= 1 - (time_penalty / 2)
         total_turns = Game.turn_map.get(self.difficulty)
         turns_remaining = self.player_one.turns
         score *= 1 + (turns_remaining / total_turns)
-        self.player_one.score = score
+        score = round(score)
+        print(f"Your score was {score}.")
         self.write_score(score)
+        return score
 
     def validate_developer_mode(self):
         """
@@ -192,7 +192,7 @@ class Game:
         try:
             with open('data/leaderboard.json') as f:
                 data = json.load(f)
-        except IOError:
+        except (IOError, Exception):
             return print("Could not load leaderboard at this time.")
         sorted_by_score = sorted(
             data, key=lambda e: int(e.get("score")), reverse=True)
@@ -216,7 +216,7 @@ class Game:
         except (IOError, Exception):
             return print("Could not load leaderboard at this time.")
         new_entry = {"name": self.player_one.name,
-                     "score": str(round(score))}
+                     "score": str(score)}
         data.append(new_entry)
         try:
             with open(file_name, 'w') as f:
