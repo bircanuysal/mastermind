@@ -8,7 +8,7 @@ class Scoreboard:
     Scoreboard class.
     """
 
-    def __init__(self, num_count: int):
+    def __init__(self, num_count: int = 4):
         """
         ScoreBoard constructor.
         """
