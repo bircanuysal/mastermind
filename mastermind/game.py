@@ -9,12 +9,15 @@ from mastermind.utils.num_validator import NumValidator
 from mastermind.utils.str_validator import StrValidator
 from mastermind.utils.timer import Timer
 from time import sleep
+from typing import List, Dict
 
 
 class Game:
     """
     Game class.
     """
+
+    leaderboard_file_path = "data/leaderboard.json"
 
     def __init__(self):
         """
@@ -52,16 +55,25 @@ class Game:
 
     def game_start(self):
         """
-        Starts a new game.
-        New board and new player(s) is/are instantiated.
+        Starts a new game. New board is instantiated.
         """
         d = self.developer_mode
         self.board = Board(
             9, d) if self.player_one.difficulty == "4" else Board(7, d)
         self.display_instructions()
-        victory_status = False
         timer = Timer()
         timer.start()
+        victory_status = self.game_loop()
+        timer.stop()
+        print(f"The answer was {self.board.num_list}.")
+        self.calculate_score(victory_status, timer.elapsed_time)
+        self.end_game()
+
+    def game_loop(self) -> bool:
+        """
+        Main loop for game. Returns true if player has won game or
+        false if player has lost.
+        """
         while True:
             self.developer_mode and print(
                 "Answer = " + str(self.board.num_list))
@@ -69,16 +81,11 @@ class Game:
             self.board.check_board()
             self.board.display()
             if self.check_victory(self.board):
-                victory_status = True
                 print("\nYou have won!")
-                break
+                return True
             elif self.check_defeat(self.player_one):
                 print(f"\nBetter luck next time, {self.player_one.name}!")
-                break
-        print(f"The answer was {self.board.num_list}.")
-        timer.stop()
-        self.calculate_score(victory_status, timer.elapsed_time)
-        self.play_again()
+                return False
 
     def play(self):
         """
@@ -102,16 +109,24 @@ class Game:
         """
         return player.turns == 0
 
-    def play_again(self):
+    def end_game(self):
         """
-        Prompts the player to play again.
+        Prompts the player to play again, view leaderboard or quit.
         """
-        response = input("Play again? (y/n) ")
-        if response in {'y', 'Y'}:
-            self.display_options()
-            self.game_start()
-        else:
-            print(f"Goodbye!")
+        nv = NumValidator()
+        while True:
+            print("\nWhat would you like to do next?\n"
+                  "1. Play again.\n"
+                  "2. View leaderboard.\n"
+                  "3. Quit.\n")
+            response = nv.get_endgame(1, 3)
+            if response == 1:
+                self.display_options()
+                return self.game_start()
+            elif response == 2:
+                self.display_leaderboard()
+            else:
+                return print(f"Goodbye!")
 
     def display_difficulty(self):
         """
@@ -132,7 +147,7 @@ class Game:
               "entering four numbers.\n"
               "================================================")
 
-    def calculate_score(self, victory: bool, time: int) -> int:
+    def calculate_score(self, victory: bool, time: int):
         """
         Calculates player score based on victory status, time, difficulty and
         turns remaining.
@@ -141,7 +156,6 @@ class Game:
         score = s.final_score()
         print(f"Your score was {score}.")
         self.write_score(score)
-        return score
 
     def validate_developer_mode(self):
         """
@@ -174,43 +188,46 @@ class Game:
         if option == 2:
             self.display_leaderboard()
 
+    def open_leaderboard(self) -> List[Dict[str, str]] or None:
+        """
+        Attempts to open leaderboard. Returns leaderboard if successful.
+        """
+        try:
+            with open(Game.leaderboard_file_path) as f:
+                data = json.load(f)
+                return data
+        except (IOError, Exception):
+            print("Could not load leaderboard at this time.")
+            return None
+
     def display_leaderboard(self):
         """
         Displays current leaderboard, sorted in descending order.
         """
-        try:
-            with open('data/leaderboard.json') as f:
-                data = json.load(f)
-        except (IOError, Exception):
-            return print("Could not load leaderboard at this time.")
-        sorted_by_score = sorted(
-            data, key=lambda e: int(e.get("score")), reverse=True)
-        name, score = "Name", "High Score"
-        print(f"\n{name: <30} {score: >17}\n"
-              "================================================")
-        for entry in sorted_by_score:
-            entry_name = entry.get("name")
-            entry_score = entry.get("score")
-            print(f"{entry_name: <30} {entry_score: >17}")
-        print("================================================\n")
+        data = self.open_leaderboard()
+        if data:
+            sorted_by_score = sorted(
+                data, key=lambda e: int(e.get("score")), reverse=True)
+            name, score = "Name", "High Score"
+            print(f"\n{name: <30} {score: >17}\n"
+                  "================================================")
+            for entry in sorted_by_score:
+                entry_name = entry.get("name")
+                entry_score = entry.get("score")
+                print(f"{entry_name: <30} {entry_score: >17}")
+            print("================================================\n")
 
     def write_score(self, score: int):
         """
         Writes current score to leaderboard.
         """
-        file_name = "data/leaderboard.json"
-        try:
-            with open(file_name) as f:
-                data = json.load(f)
-        except (IOError, Exception):
-            return print("Could not load leaderboard at this time.")
-        new_entry = {"name": self.player_one.name,
-                     "score": str(score)}
-        data.append(new_entry)
-        try:
-            with open(file_name, 'w') as f:
-                json.dump(data, f)
-        except (IOError, Exception):
-            print("Could not write score to leaderboard at this time.")
-        else:
-            self.display_leaderboard()
+        data = self.open_leaderboard()
+        if data:
+            new_entry = {"name": self.player_one.name,
+                         "score": str(score)}
+            data.append(new_entry)
+            try:
+                with open(Game.leaderboard_file_path, 'w') as f:
+                    json.dump(data, f)
+            except (IOError, Exception):
+                print("Could not write score to leaderboard at this time.")
