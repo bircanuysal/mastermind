@@ -14,7 +14,8 @@ This repository contains the Mastermind game written in Python3 for the terminal
   - [Installation](#installation)
 - [How to Play](#how-to-play)
 - [Development](#development)
-  - [UML](#class-diagram)
+  - [Class Diagram](#class-diagram)
+  - [Activity Diagram](#activity-diagram)
 - [Features](#features)
   - [Leaderboard](#leaderboard)
   - [Hints](#hints)
@@ -106,7 +107,11 @@ guesses [1, 3, 6, 9], the feedback that is given will be:
 
 ### Class Diagram
 
-![Alt text](/data/mastermind.png "Mastermind Class Diagram")
+![Alt text](/data/img/mastermind.png "Mastermind Class Diagram")
+
+### Activity Diagram
+
+Coming soon!
 
 ## Features
 
