@@ -15,6 +15,12 @@ class StrValidator(Validator):
         prompt = "What is your name? "
         return self.capitalize(self.get_input(prompt))
 
+    def capitalize(self, string: str) -> str:
+        """
+        Capitalize all words of a string.
+        """
+        return " ".join([word.capitalize() for word in string.split()])
+
     def get_input(self, prompt: str) -> str:
         """
         Validates user input to contain only alphabet characters or spaces
@@ -40,9 +46,3 @@ class StrValidator(Validator):
                 return False
             one_letter = True
         return one_letter
-
-    def capitalize(self, string: str) -> str:
-        """
-        Capitalize all words of a string.
-        """
-        return " ".join([word.capitalize() for word in string.split()])
