@@ -136,25 +136,12 @@ class Game:
             self.board.get_player_input(self.player_one)
             self.board.check_board()
             self.board.display()
-            if self.check_victory(self.board):
+            if self.player_one.check_victory(self.board.num_count, self.board.scoreboard):
                 print("\nYou have won!")
                 return True
-            elif self.check_defeat(self.player_one):
+            elif self.player_one.check_defeat():
                 print(f"\nBetter luck next time, {self.player_one.name}!")
                 return False
-
-    def check_victory(self, board: Board) -> bool:
-        """
-        Checks if the current player has won the game.
-        """
-        last_score = board.scoreboard.player_scores[-1]
-        return last_score.get("correct_positions") == board.num_count
-
-    def check_defeat(self, player) -> bool:
-        """
-        Checks if the current player has lost the game.
-        """
-        return player.turns == 0
 
     def calculate_score(self, victory: bool, time: int):
         """
