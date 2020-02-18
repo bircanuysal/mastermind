@@ -1,23 +1,22 @@
 #!/usr/bin/env python3
 
-from mastermind.board import Board
-from mastermind.player import Player
-
 
 class Score:
     """
     Score class.
     """
 
-    def __init__(self, board: Board, player: Player, victory: bool, time: int):
+    def __init__(self, player, victory: bool, time: int,
+                 num_count: int, hints_remaining: int):
         """
         Score constructor.
         """
         self.base_score = 100000
-        self.board = board
         self.player = player
         self.victory = victory
         self.time = time
+        self.num_count = num_count
+        self.hints_remaining = hints_remaining
 
     def final_score(self):
         """
@@ -77,8 +76,8 @@ class Score:
         3 hints used = -75% reduction
         4 hints used = -100% reduction
         """
-        hints_used = self.board.num_count - len(self.board.hints_remaining)
+        hints_used = self.num_count - self.hints_remaining
         print(f"Hints used: {hints_used}.")
-        hint_penalty = hints_used / self.board.num_count
+        hint_penalty = hints_used / self.num_count
         self.base_score -= hint_penalty * self.base_score
         return self.base_score
