@@ -4,7 +4,7 @@
 
 # Mastermind
 
-This repository contains the Mastermind game written in Python3 for the terminal.
+This repository contains the Mastermind game written in Python3 for the command line.
 
 ## Table of Contents
 
@@ -22,6 +22,7 @@ This repository contains the Mastermind game written in Python3 for the terminal
   - [Continuous Integration](#continuous-integration)
   - [Unit Testing](#unit-testing)
 - [To Dos](#to-dos)
+- [Special Thanks](#special-thanks)
 - [Authors](#authors)
 
 ## Requirements
@@ -37,7 +38,7 @@ This repository contains the Mastermind game written in Python3 for the terminal
 
 ### Installation
 
-- On your command line, clone the repository with Git:
+- On your terminal, clone the repository with Git:
 
 `git clone https://github.com/tuvo1106/reach_mastermind`
 
@@ -54,7 +55,7 @@ This repository contains the Mastermind game written in Python3 for the terminal
 - Alternatively, if you want to play on your browser, you can use the following link:
   - [![Run on Repl.it](https://repl.it/badge/github/tuvo1106/reach_mastermind)](https://repl.it/github/tuvo1106/reach_mastermind)
   - In the .replit file, make sure to configure the run command to be:
-    `python ./setup.py`
+    `python3 ./setup.py`
   - Press "Run" to play!
 
 ## How to Play
@@ -107,11 +108,11 @@ guesses [1, 3, 6, 9], the feedback that is given will be:
 
 ### Class Diagram
 
-![Alt text](/data/img/mastermind.png "Mastermind Class Diagram")
+![Class Diagram](/data/img/mastermind.png "Mastermind Class Diagram")
 
 ### Activity Diagram
 
-Coming soon!
+![Activity Diagram](/data/img/mastermind_activity.png "Mastermind Activity Diagram")
 
 ## Features
 
@@ -155,6 +156,13 @@ in the following command from the root of the repo:
 ## To Dos
 
 - Add multiplayer functionality.
+
+## Special Thanks
+
+Thank you to the following people for beta-testing:
+- [Ryuichi Miyazaki](https://github.com/rmiyazaki6499)
+- [Farrukh Akhrarov](https://github.com/narnat)
+- [Tim Assavarat](https://github.com/tassavarat)
 
 ## Authors
 
