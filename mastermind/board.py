@@ -14,7 +14,7 @@ class Board:
     Board class.
     """
 
-    def __init__(self, num_combinations: int = 7, developer_mode: bool = False):
+    def __init__(self, num_combinations: int = 7, dev_mode: bool = False):
         """
         Board constructor.
         Default value for the amount of numbers to guess is 4. Default value
@@ -22,7 +22,7 @@ class Board:
         """
         self.num_count = 4
         self.num_combinations = num_combinations
-        if developer_mode:
+        if dev_mode:
             self.num_list = self.generate_numbers_locally()
         else:
             self.num_list = self.generate_numbers_with_API()

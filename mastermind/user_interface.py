@@ -44,17 +44,17 @@ class UserInterface:
         if option == 2:
             Leaderboard.display_leaderboard()
 
-    def display_player_options(self, player: Player, developer_mode: bool) -> Player:
+    def display_player_options(self, player: Player, dev_mode: bool) -> Player:
         """
         Displays player options and returns a new instance of a Player.
         """
         name = (self.sv.get_name() if not player
                 else player.name)
-        if name == "Tu" and not developer_mode:
-            developer_mode = self.av.get_credentials()
+        if name == "Tu" and not dev_mode:
+            dev_mode = self.av.get_credentials()
         self.display_difficulty()
         difficulty = self.nv.get_difficulty(1, 4)
-        return (Player(name, str(difficulty)), developer_mode)
+        return (Player(name, str(difficulty)), dev_mode)
 
     def display_difficulty(self):
         """

@@ -17,7 +17,7 @@ class Game:
         self.ui = UserInterface()
         self.board = None
         self.player_one = None
-        self.developer_mode = False
+        self.dev_mode = False
 
     def game_on(self):
         """
@@ -25,8 +25,8 @@ class Game:
         """
         self.ui.display_title()
         self.ui.display_home()
-        self.player_one, self.developer_mode = self.ui.display_player_options(
-            self.player_one, self.developer_mode)
+        self.player_one, self.dev_mode = self.ui.display_player_options(
+            self.player_one, self.dev_mode)
         self.game_start()
 
     def game_start(self):
@@ -34,9 +34,9 @@ class Game:
         Starts a new game. New board is instantiated.
         """
         if self.player_one.difficulty == "4":
-            self.board = Board(9, self.developer_mode)
+            self.board = Board(9, self.dev_mode)
         else:
-            self.board = Board(7, self.developer_mode)
+            self.board = Board(7, self.dev_mode)
         self.ui.display_instructions()
         timer = Timer()
         timer.start()
@@ -55,7 +55,7 @@ class Game:
         """
         while True:
             print(f"\nGood luck, { self.player_one.name}. Have fun!")
-            self.developer_mode and print(
+            self.dev_mode and print(
                 "Answer = " + str(self.board.num_list))
             self.board.get_player_input(self.player_one)
             self.board.check_board()
@@ -74,6 +74,6 @@ class Game:
         """
         play_again = self.ui.display_endgame()
         if play_again:
-            self.ui.display_player_options(
-                self.player_one, self.developer_mode)
+            self.player_one, self.dev_mode = self.ui.display_player_options(
+                self.player_one, self.dev_mode)
             self.game_start()
