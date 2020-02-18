@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from mastermind.scoreboard import Scoreboard
+from mastermind.history import History
 
 
 class Player:
@@ -17,11 +17,11 @@ class Player:
         self.difficulty = difficulty
         self.turns = turn_map.get(self.difficulty)
 
-    def check_victory(self, num_count: int, scoreboard: Scoreboard) -> bool:
+    def check_victory(self, num_count: int, history: History) -> bool:
         """
         Checks if the current player has won the game.
         """
-        last_score = scoreboard.player_scores[-1]
+        last_score = history.player_scores[-1]
         return last_score.get("correct_positions") == num_count
 
     def check_defeat(self) -> bool:

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 from mastermind.board import Board
-from mastermind.scoreboard import Scoreboard
+from mastermind.history import History
 import unittest
 
 
@@ -46,9 +46,9 @@ class Board_Test(unittest.TestCase):
         """
         board = Board(7, True)
         board.num_list = [1, 2, 3, 4]
-        scoreboard = Scoreboard()
-        board.scoreboard = scoreboard
-        scoreboard.player_guesses = [[1, 2, 3, 4]]
+        history = History()
+        board.history = history
+        history.player_guesses = [[1, 2, 3, 4]]
         self.assertDictEqual(board.check_board(),
                              {"correct_colors": 0,
                               "correct_positions": 4})
@@ -59,9 +59,9 @@ class Board_Test(unittest.TestCase):
         """
         board = Board(7, True)
         board.num_list = [1, 2, 3, 4]
-        scoreboard = Scoreboard()
-        board.scoreboard = scoreboard
-        scoreboard.player_guesses = [[5, 6, 7, 0]]
+        history = History()
+        board.history = history
+        history.player_guesses = [[5, 6, 7, 0]]
         self.assertDictEqual(board.check_board(),
                              {"correct_colors": 0,
                               "correct_positions": 0})
@@ -72,9 +72,9 @@ class Board_Test(unittest.TestCase):
         """
         board = Board(7, True)
         board.num_list = [1, 2, 3, 4]
-        scoreboard = Scoreboard()
-        board.scoreboard = scoreboard
-        scoreboard.player_guesses = [[1, 1, 1, 1]]
+        history = History()
+        board.history = history
+        history.player_guesses = [[1, 1, 1, 1]]
         self.assertDictEqual(board.check_board(),
                              {"correct_colors": 0,
                               "correct_positions": 1})
@@ -85,9 +85,9 @@ class Board_Test(unittest.TestCase):
         """
         board = Board(7, True)
         board.num_list = [1, 2, 3, 4]
-        scoreboard = Scoreboard()
-        board.scoreboard = scoreboard
-        scoreboard.player_guesses = [[1, 4, 2, 3]]
+        history = History()
+        board.history = history
+        history.player_guesses = [[1, 4, 2, 3]]
         self.assertDictEqual(board.check_board(),
                              {"correct_colors": 3,
                               "correct_positions": 1})
@@ -98,9 +98,9 @@ class Board_Test(unittest.TestCase):
         """
         board = Board(7, True)
         board.num_list = [2, 2, 5, 5]
-        scoreboard = Scoreboard()
-        board.scoreboard = scoreboard
-        scoreboard.player_guesses = [[2, 2, 2, 2]]
+        history = History()
+        board.history = history
+        history.player_guesses = [[2, 2, 2, 2]]
         self.assertDictEqual(board.check_board(),
                              {"correct_colors": 0,
                               "correct_positions": 2})

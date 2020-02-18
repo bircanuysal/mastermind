@@ -3,14 +3,14 @@
 from typing import List
 
 
-class Scoreboard:
+class History:
     """
-    Scoreboard class.
+    History class.
     """
 
     def __init__(self, num_count: int = 4):
         """
-        ScoreBoard constructor.
+        History constructor.
         """
         self.num_count = num_count
         self.player_guesses = []
@@ -18,9 +18,9 @@ class Scoreboard:
 
     def generate_history(self) -> List[str]:
         """
-        Generates history of guesses and scores for scoreboard.
+        Generates history of guesses and scores.
         """
-        scoreboard = []
+        history = []
         for i, (g, s) in enumerate(zip(self.player_guesses, self.player_scores)):
             string_builder = []
             string_builder.append(f"{i + 1}.  " if i < 9 else f"{i + 1}. ")
@@ -32,8 +32,8 @@ class Scoreboard:
             string_builder.append("O " * correct_colors)
             string_builder.append(
                 "* " * (self.num_count - int(correct_colors) - int(correct_positions)))
-            scoreboard.append("".join(string_builder))
-        return scoreboard
+            history.append("".join(string_builder))
+        return history
 
     def __str__(self) -> str:
         """

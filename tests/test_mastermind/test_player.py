@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 from mastermind.player import Player
-from mastermind.scoreboard import Scoreboard
+from mastermind.history import History
 import unittest
 
 
@@ -14,30 +14,30 @@ class Player_Test(unittest.TestCase):
         """
         Test check_victory() for truthy returns.
         """
-        scoreboard = Scoreboard()
-        scoreboard.player_scores = [
+        history = History()
+        history.player_scores = [
             {"correct_colors": 0, "correct_positions": 4}]
         player = Player("Tu", "1")
-        self.assertTrue(player.check_victory(4, scoreboard))
+        self.assertTrue(player.check_victory(4, history))
 
     def test_check_victory_falsy(self):
         """
         Test check_victory() for falsy returns.
         """
-        scoreboard = Scoreboard()
-        scoreboard.player_scores = [
+        history = History()
+        history.player_scores = [
             {"correct_colors": 1, "correct_positions": 3}]
         player = Player("Tu", "1")
-        self.assertFalse(player.check_victory(4, scoreboard))
-        scoreboard.player_scores = [
+        self.assertFalse(player.check_victory(4, history))
+        history.player_scores = [
             {"correct_colors": 2, "correct_positions": 2}]
-        self.assertFalse(player.check_victory(4, scoreboard))
-        scoreboard.player_scores = [
+        self.assertFalse(player.check_victory(4, history))
+        history.player_scores = [
             {"correct_colors": 3, "correct_positions": 1}]
-        self.assertFalse(player.check_victory(4, scoreboard))
-        scoreboard.player_scores = [
+        self.assertFalse(player.check_victory(4, history))
+        history.player_scores = [
             {"correct_colors": 4, "correct_positions": 0}]
-        self.assertFalse(player.check_victory(4, scoreboard))
+        self.assertFalse(player.check_victory(4, history))
 
     def test_check_defeat_truthy(self):
         """

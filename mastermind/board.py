@@ -2,7 +2,7 @@
 
 from collections import Counter
 from mastermind.player import Player
-from mastermind.scoreboard import Scoreboard
+from mastermind.history import History
 from mastermind.utils.num_validator import NumValidator
 from random import randint
 import requests
@@ -26,7 +26,7 @@ class Board:
             self.num_list = self.generate_numbers_locally()
         else:
             self.num_list = self.generate_numbers_with_API()
-        self.scoreboard = Scoreboard(self.num_count)
+        self.history = History(self.num_count)
         self.hints_remaining = [i for i in range(self.num_count)]
 
     def generate_numbers_locally(self) -> List[int]:
@@ -81,7 +81,7 @@ class Board:
             guesses.append(guess)
             guess_count += 1
         player.turns -= 1
-        self.scoreboard.player_guesses.append(guesses)
+        self.history.player_guesses.append(guesses)
 
     def check_board(self):
         """
@@ -89,7 +89,7 @@ class Board:
         Algorithm speed is currently O(n) time complexity and O(n) space
         complexity.
         """
-        last_guesses = self.scoreboard.player_guesses[-1]
+        last_guesses = self.history.player_guesses[-1]
         correct_colors = sum(
             (Counter(self.num_list) & Counter(last_guesses)).values())
         correct_positions = 0
@@ -99,21 +99,16 @@ class Board:
                 correct_colors -= 1
         new_entry = {"correct_colors": correct_colors,
                      "correct_positions": correct_positions}
-        self.scoreboard.player_scores.append(new_entry)
+        self.history.player_scores.append(new_entry)
         return new_entry
 
-    def display(self):
+    def display_history(self):
         """
         Displays the current status of the board. This includes a list of
         the player's previous guesses as well as the player's current score.
+        Also displays the legend.
         """
-        print(self.scoreboard)
-        self.display_legend()
-
-    def display_legend(self):
-        """
-        Displays the board legend.
-        """
+        print(self.history)
         print("\nX = Correct number, correct location\n"
               "O = Correct number, incorrect location\n"
               "* = Incorrect number, incorrect location")
