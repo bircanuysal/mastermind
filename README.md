@@ -109,7 +109,7 @@ guesses [1, 3, 6, 9], the feedback that is given will be:
 
 ### Class Diagram
 
-![Class Diagram](/data/img/mastermind.png "Mastermind Class Diagram")
+![Class Diagram](/data/img/mastermind_class.png "Mastermind Class Diagram")
 
 ### Activity Diagram
 
@@ -140,7 +140,7 @@ computer will then generate a random number and position on the board to
 reveal.
 Each hint, however, will cause the player to lose 25% of their total score.
 
-### Mulitiplayer
+### Multiplayer
 
 Two players can play the game by taking turns creating a number sequence for the
 other player has to guess. Whoever scores highest on the leaderboard wins!
