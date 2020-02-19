@@ -14,18 +14,24 @@ class Board:
     Board class.
     """
 
-    def __init__(self, num_combinations: int = 7, dev_mode: bool = False):
+    def __init__(self, difficulty: int, num_list: List[int],
+                 dev_mode: bool = False):
         """
         Board constructor.
-        Default value for the amount of numbers to guess is 4. Default value
-        for the number of possible number combinations is 0 through 7.
+        Default value for the amount of numbers to guess is 4. If board
+        values are passed in, it will be used. Otherwise, numbers will be
+        generated with API or locally depending on whether developer mode
+        is True or not.
         """
         self.num_count = 4
-        self.num_combinations = num_combinations
-        if dev_mode:
-            self.num_list = self.generate_numbers_locally()
+        self.num_combinations = 9 if difficulty == 4 else 7
+        if num_list:
+            self.num_list = num_list
         else:
-            self.num_list = self.generate_numbers_with_API()
+            if dev_mode:
+                self.num_list = self.generate_numbers_locally()
+            else:
+                self.num_list = self.generate_numbers_with_API()
         self.history = History(self.num_count)
         self.hints_remaining = [i for i in range(self.num_count)]
 
@@ -71,7 +77,8 @@ class Board:
         nv = NumValidator()
         print(f"\n{player.turns} turns left.")
         print(f"Please enter a number between 0 and {self.num_combinations}.\n"
-              "Use 'h' for a hint. Caution, this will affect your total score!\n")
+              "Use 'h' for a hint. Caution, this will affect your\n"
+              "total score!\n")
         while len(guesses) != self.num_count:
             guess = nv.get_guess(
                 guess_count, 0, self.num_combinations)
