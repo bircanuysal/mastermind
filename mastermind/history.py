@@ -25,7 +25,7 @@ class History:
             string_builder = []
             string_builder.append(f"{i + 1}.  " if i < 9 else f"{i + 1}. ")
             string_builder.append(str([i for i in g]))
-            string_builder.append("\t\t")
+            string_builder.append("                ")
             correct_positions = s.get("correct_positions")
             string_builder.append("X " * correct_positions)
             correct_colors = s.get("correct_colors")
