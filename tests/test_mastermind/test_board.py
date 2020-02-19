@@ -14,14 +14,14 @@ class Board_Test(unittest.TestCase):
         """
         Test generate_numbers_locally() for correct return type and values.
         """
-        board = Board(7, True)
+        board = Board(1, None, True)
         res = board.generate_numbers_locally()
         self.assertTrue(type(res) == list)
         self.assertTrue(len(res) == 4)
         self.assertTrue(all([type(i) == int for i in res]))
         self.assertTrue(all([7 >= int(i) >= 0 for i in res]))
 
-        board = Board(9, True)
+        board = Board(4, None, True)
         res = board.generate_numbers_locally()
         self.assertTrue(type(res) == list)
         self.assertTrue(len(res) == 4)
@@ -33,7 +33,7 @@ class Board_Test(unittest.TestCase):
         """
         Test generate_numbers_with_API() for correct return type and values.
         """
-        board = Board(7, True)
+        board = Board(1, None, True)
         res = board.generate_numbers_with_API()
         self.assertTrue(type(res) == list)
         self.assertTrue(len(res) == 4)
@@ -44,8 +44,7 @@ class Board_Test(unittest.TestCase):
         """
         Test check_board() for correct return type and values.
         """
-        board = Board(7, True)
-        board.num_list = [1, 2, 3, 4]
+        board = Board(1, [1, 2, 3, 4], False)
         history = History()
         board.history = history
         history.player_guesses = [[1, 2, 3, 4]]
@@ -57,8 +56,7 @@ class Board_Test(unittest.TestCase):
         """
         Test check_board() for correct return type and values.
         """
-        board = Board(7, True)
-        board.num_list = [1, 2, 3, 4]
+        board = Board(1, [1, 2, 3, 4], False)
         history = History()
         board.history = history
         history.player_guesses = [[5, 6, 7, 0]]
@@ -70,8 +68,7 @@ class Board_Test(unittest.TestCase):
         """
         Test check_board() for correct return type and values.
         """
-        board = Board(7, True)
-        board.num_list = [1, 2, 3, 4]
+        board = Board(1, [1, 2, 3, 4], False)
         history = History()
         board.history = history
         history.player_guesses = [[1, 1, 1, 1]]
@@ -83,8 +80,7 @@ class Board_Test(unittest.TestCase):
         """
         Test check_board() for correct return type and values.
         """
-        board = Board(7, True)
-        board.num_list = [1, 2, 3, 4]
+        board = Board(1, [1, 2, 3, 4], False)
         history = History()
         board.history = history
         history.player_guesses = [[1, 4, 2, 3]]
@@ -96,8 +92,7 @@ class Board_Test(unittest.TestCase):
         """
         Test check_board() for correct return type and values.
         """
-        board = Board(7, True)
-        board.num_list = [2, 2, 5, 5]
+        board = Board(1, [2, 2, 5, 5], False)
         history = History()
         board.history = history
         history.player_guesses = [[2, 2, 2, 2]]
@@ -109,14 +104,14 @@ class Board_Test(unittest.TestCase):
         """
         Test generate_hint() for truthy returns.
         """
-        board = Board(7, True)
+        board = Board(1, None, True)
         self.assertTrue(board.generate_hint())
 
     def test_generate_hint_falsy(self):
         """
         Test generate_hint() for falsy returns.
         """
-        board = Board(7, True)
+        board = Board(1, None, True)
         for _ in range(4):
             board.generate_hint()
         self.assertFalse(board.generate_hint())
