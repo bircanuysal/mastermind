@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import getpass
 from mastermind.leaderboard import Leaderboard
 from mastermind.player import Player
 from mastermind.utils.auth_validator import AuthValidator
@@ -25,32 +26,37 @@ class UserInterface:
         """
         Displays title screen.
         """
-        print("================================================"
+        print("======================================================"
               "\n\nMASTERMIND\n\n"
-              "================================================\n"
+              "======================================================\n"
               "Test your code-cracking prowess with Mastermind,\n"
               "the challenging game of logic and deduction.\n"
-              "================================================\n")
+              "======================================================\n")
 
-    def display_home(self):
+    def display_home(self) -> int:
         """
-        Displays home screen with options for playing the game or viewing
-        the leaderboard.
+        Displays home screen with options for single-player, multiplayer or
+        viewing the leaderboard.
         """
-        print("Welcome!\n"
-              "1. Play game\n"
-              "2. View leaderboard\n")
-        option = self.nv.get_home_screen(1, 2)
-        if option == 2:
-            Leaderboard.display_leaderboard()
+        while True:
+            print("Welcome!\n"
+                  "1. Single-player\n"
+                  "2. Multi-player\n"
+                  "3. View leaderboard\n")
+            option = self.nv.get_home_screen(1, 3)
+            if option == 1:
+                return 1
+            elif option == 2:
+                return 2
+            else:
+                Leaderboard.display_leaderboard()
 
     def display_player_options(self, player: Player, dev_mode: bool) -> Player:
         """
         Displays player options and returns a new instance of a Player.
         """
-        name = (self.sv.get_name() if not player
-                else player.name)
-        if name == "Tu" and not dev_mode:
+        name = self.sv.get_name()
+        if name == "Tu":
             dev_mode = self.av.get_credentials()
         self.display_difficulty()
         difficulty = self.nv.get_difficulty(1, 4)
@@ -66,14 +72,46 @@ class UserInterface:
               "3. Hard - 8 turns.\n"
               "4. Dark Souls - 6 turns. 10 numbers to choose from.\n")
 
+    def display_board_options(self, player: Player):
+        """
+        Displays prompt for assigning board numbers to a player.
+        """
+        max_n = 9 if int(player.difficulty) == 4 else 7
+        while True:
+            numbers = getpass.getpass(
+                f"\nCodemaker, enter in four numbers between 0 and {max_n}: ")
+            try:
+                num_list = list(numbers)
+                if len(num_list) != 4:
+                    raise ValueError
+                num_list = [int(i) for i in num_list]
+                if any(i > max_n for i in num_list):
+                    raise ValueError
+                player.num_list = num_list
+                return
+            except Exception:
+                print("Invalid entry. Try again.")
+
     def display_instructions(self):
         """
         Displays game instructions.
         """
-        print("\n================================================\n"
+        print("\n======================================================\n"
               "Try to guess the correct number sequence by\n"
               "entering four numbers.\n"
-              "================================================")
+              "======================================================")
+
+    def display_multiplayer_instructions(self, active: int):
+        """
+        Displays instructions for 2 player mode.
+        """
+        n = "first" if active == 1 else "second"
+        opposite = 2 if active == 1 else 1
+        print("\n======================================================\n"
+              f"\nIn the {n} round, Player {active} will be the Codebreaker\n"
+              f"and attempts to guess while Player {opposite} will be the\n"
+              "Codemaker and creates the sequence of numbers.\n\n"
+              "======================================================\n")
 
     def display_endgame(self):
         """
@@ -81,7 +119,7 @@ class UserInterface:
         or quit.
         """
         while True:
-            print("\nWhat would you like to do next?\n"
+            print("What would you like to do next?\n"
                   "1. Play again.\n"
                   "2. View leaderboard.\n"
                   "3. Quit.\n")
