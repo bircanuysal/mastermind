@@ -19,6 +19,7 @@ class Player:
         self.name = name
         self.difficulty = difficulty
         self.turns = turn_map.get(self.difficulty)
+        self.num_list = None
 
     def check_victory(self, num_count: int,
                       player_scores: List[Dict[str, str]]) -> bool:
@@ -42,5 +43,5 @@ class Player:
         """
         s = Score(self, victory, time, num_count, hints_remaining)
         score = s.final_score()
-        print(f"Your score was {score}.")
+        print(f"Your score was {score}.\n")
         Leaderboard.write_score(self.name, score)

@@ -12,7 +12,7 @@ class StrValidator(Validator):
         """
         Gets user input for names.
         """
-        prompt = "What is your name? "
+        prompt = "Codebreaker, what is your name? "
         return self.capitalize(self.get_input(prompt))
 
     def capitalize(self, string: str) -> str:
