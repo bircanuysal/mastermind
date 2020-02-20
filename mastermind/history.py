@@ -16,9 +16,22 @@ class History:
         self.player_guesses = []
         self.player_scores = []
 
+    def __str__(self) -> str:
+        """
+        String representation of class.
+        """
+        sb = self.generate_history()
+        results = "\n".join([line for line in sb])
+        string = "\n".join(
+            ("======================================================",
+             "\n#   Guesses                     Scores\n",
+             results,
+             "\n======================================================",))
+        return string
+
     def generate_history(self) -> List[str]:
         """
-        Generates history of guesses and scores.
+        Generates history of player's guesses and scores.
         """
         history = []
         for i, (g, s) in enumerate(zip(self.player_guesses, self.player_scores)):
@@ -34,16 +47,3 @@ class History:
                 "* " * (self.num_count - int(correct_colors) - int(correct_positions)))
             history.append("".join(string_builder))
         return history
-
-    def __str__(self) -> str:
-        """
-        String representation of class.
-        """
-        sb = self.generate_history()
-        results = "\n".join([line for line in sb])
-        string = "\n".join(
-            ("======================================================",
-             "\n#   Guesses                     Scores\n",
-             results,
-             "\n======================================================",))
-        return string
