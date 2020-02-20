@@ -78,8 +78,8 @@ class Game:
         Main loop for game. Returns true if player has won game or
         false if player has lost.
         """
+        print(f"\nGood luck, {player.name}. Have fun!")
         while True:
-            print(f"\nGood luck, {player.name}. Have fun!")
             self.dev_mode and print(
                 "Answer = " + str(self.board.num_list))
             self.board.get_player_input(player)
