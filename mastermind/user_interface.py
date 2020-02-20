@@ -103,7 +103,7 @@ class UserInterface:
 
     def display_multiplayer_instructions(self, active: int):
         """
-        Displays instructions for 2 player mode.
+        Displays game instructions for multiplayer mode.
         """
         n = "first" if active == 1 else "second"
         opposite = 2 if active == 1 else 1

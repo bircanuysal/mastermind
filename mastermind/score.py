@@ -30,7 +30,7 @@ class Score:
 
     def apply_victory_bonus(self) -> int:
         """
-        Applies bonus based on if the player has won or not.
+        Applies bonus based on the player's victory status.
         Lose              = No bonus
         Win on Easy       = +200% bonus
         Win on Medium     = +400% bonus
