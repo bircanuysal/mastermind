@@ -21,7 +21,7 @@ class Board:
         Default value for the amount of numbers to guess is 4. If board
         values are passed in, it will be used. Otherwise, numbers will be
         generated with API or locally depending on whether developer mode
-        is True or not.
+        is on or not.
         """
         self.num_count = 4
         self.num_combinations = 9 if difficulty == 4 else 7
@@ -45,7 +45,7 @@ class Board:
     def generate_numbers_with_API(self) -> List[int]:
         """
         Generates random numbers using the random.org API. If for any reason
-        that call is unsuccessful, the numbers will be generated locally.
+        the call is unsuccessful, numbers will be generated locally.
         """
         url = "https://www.random.org/integers/"
         query_string = {"num": "4", "min": "0",
@@ -70,7 +70,7 @@ class Board:
 
     def get_player_input(self, player: Player):
         """
-        Ask current player for input. Will only accept valid integers.
+        Ask current player for guess input. Will only accept valid integers.
         """
         guesses = []
         guess_count = 1
@@ -111,8 +111,7 @@ class Board:
 
     def display_history(self):
         """
-        Displays the current status of the board. This includes a list of
-        the player's previous guesses as well as the player's current score.
+        Displays the current history of the player's guesses and scores.
         Also displays the legend.
         """
         print(self.history)
@@ -123,7 +122,7 @@ class Board:
     def generate_hint(self) -> bool:
         """
         Generates a hint for the user. Returns True if there are hints
-        available, false if not.
+        available, False if not.
         """
         if not len(self.hints_remaining):
             print("No hints remaining!\n")
